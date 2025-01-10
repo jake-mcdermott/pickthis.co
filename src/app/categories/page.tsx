@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Bars3Icon, XMarkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline"; // Import additional icons for the hamburger menu
+import { ComputerDesktopIcon, SpeakerWaveIcon, Bars3Icon, XMarkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline"; // Import additional icons for the hamburger menu
 
 export default function Home() {
+  const categories = [
+    { name: "monitors", icon: <ComputerDesktopIcon className="h-6 w-6 mr-2" /> },
+    { name: "headphones", icon: <ComputerDesktopIcon className="h-6 w-6 mr-2" /> },
+    { name: "graphics cards", icon: <ComputerDesktopIcon className="h-6 w-6 mr-2" /> },
+    { name: "laptops", icon: <SpeakerWaveIcon className="h-6 w-6 mr-2" /> },
+    { name: "smartphones", icon: <SpeakerWaveIcon className="h-6 w-6 mr-2" /> },
+    { name: "tablets", icon: <SpeakerWaveIcon className="h-6 w-6 mr-2" /> }
+  ];
+
   const [fadeIn, setFadeIn] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false); // State to manage the mobile menu
@@ -40,7 +49,7 @@ export default function Home() {
       }`}
     >
       <nav className={`shadow-md ${darkMode ? "bg-gray-800" : "bg-white"} fixed w-full z-50`}>
-        <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           {/* Logo with horizontal dots animation */}
           <Link href="/" className={`text-3xl font-semibold flex items-center space-x-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
             <div className="relative group flex items-center space-x-6 py-2 px-4 cursor-pointer">
@@ -121,84 +130,27 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className={`flex items-center justify-center min-h-screen px-6`}>
-        <div className="text-left pt-24 md:pt-40 pb-24 max-w-4xl mx-auto">
-          {/* Tagline and Company Introduction */}
-          <div className="mb-10">
-            <h1
-              className={`text-4xl md:text-7xl font-semibold mb-4 tracking-tight ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
-            >
-              We read the reviews so you don&apos;t have to.
-            </h1>
-            <h4
-              className={`text-4xl md:text-3xl mb-4 tracking-tight ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
-            >
-              Only the best products, handpicked for every category.
-            </h4>
-          </div>
-          <h2
-            className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            No ads.
-          </h2>
-          <h2
-            className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            No trackers.
-          </h2>
-          <h2
-            className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            No paid posts.
-          </h2>
-          <h2
-            className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            No selling data.
-          </h2>
-          <h2
-            className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            No sponsorships.
-          </h2>
-          <h2
-            className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Just three great options to purchase.
-          </h2>
+      <div className="text-center pt-36 md:pt-52 pb-24 px-6 max-w-4xl mx-auto">
+        <h1 className={`text-4xl md:text-5xl font-semibold mb-4 tracking-tight ${darkMode ? "text-white" : "text-gray-900"}`}>
+          Pick a category.
+        </h1>
 
-          {/* "Browse All" Button */}
-          <div className="flex justify-center mt-20">
-          <Link
-            href="/categories"
-            className={`group relative inline-flex items-center px-10 py-6 md:px-12 md:py-5 ${
-              darkMode
-                ? "bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700 text-white hover:from-teal-600 hover:to-teal-800"
-                : "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white hover:from-blue-600 hover:to-blue-800"
-            } text-lg md:text-xl uppercase font-bold rounded-full shadow-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105`}
-          >
-            <span className="relative">
-              <Bars3Icon className="h-6 w-6 mr-3 inline-block" />
-              All Categories
-            </span>
-          </Link>
-          </div>
+        {/* Categories Links */}
+        <div className="flex flex-wrap gap-4 md:gap-6 justify-center mb-8 md:mb-10 pt-6">
+          {categories.map((category, index) => (
+            <Link
+              key={index}
+              href={`/category/${category.name}`}
+              className={`flex items-center justify-start md:justify-center w-40 h-16 md:w-60 md:h-20 ${
+                darkMode ? "bg-gray-700 text-white" : "bg-white text-gray-800"
+              } rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out px-4`}
+            >
+              {category.icon}
+              <span className="text-left md:text-center">
+                {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
 
